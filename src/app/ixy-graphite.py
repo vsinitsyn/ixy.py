@@ -51,7 +51,10 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('pci_address', help='NIC PCI address e.g. 0000:00:08.0', type=str)
     parser.add_argument('ip_address', help='IP address to listen', type=str)
+    parser.add_argument('-d', '--debug', help='Enable debug logs', action='store_true', default=False)
     args = parser.parse_args()
+    if not args.debug:
+        log.getLogger().setLevel(log.INFO)
     try:
         run_graphite(args)
     except KeyboardInterrupt:
